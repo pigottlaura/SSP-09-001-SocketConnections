@@ -32,6 +32,18 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+app.newSocketConnection = function(socket){
+    var io = app.get("io");
+    
+    console.log("New user connected to the chat");
+    
+    socket.on("send message", function(message){
+        console.log("New message - " + message);
+        io.emit("new message", message);
+    });
+    
+;}
+
 // error handlers
 
 // development error handler

@@ -31,6 +31,13 @@ server.listen(port, function(){
 server.on('error', onError);
 server.on('listening', onListening);
 
+
+var io = require('socket.io').listen(server);
+
+io.on('connect', app.newSocketConnection);
+
+app.set("io", io);
+
 /**
  * Normalize a port into a number, string, or false.
  */
