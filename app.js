@@ -37,9 +37,15 @@ app.newSocketConnection = function(socket){
     
     console.log("New user connected to the chat");
     
-    socket.on("send message", function(message){
-        console.log("New message - " + message);
-        io.emit("new message", message);
+    socket.on("send message", function(messageData){
+        var currentTime = new Date();
+        console.log("New message from " + messageData.username + " - " + messageData.message);
+        io.emit("new message", {
+            username: messageData.username,
+            message: messageData.message,
+            dateSent: currentTime.getDate() + "/" + (currentTime.getMonth() + 1) + "/" + currentTime.getFullYear(),
+            timeSent: currentTime.getHours() + ":" + currentTime.getMinutes()
+        });
     });
     
 ;}

@@ -5,7 +5,10 @@ jQuery(document).ready(function($){
     $("#chatForm").submit(function(){
         if($("#myMessage").val() != ""){
             console.log("Sending message - " + $("#myMessage").val());
-            socket.emit("send message", $("#myMessage").val());
+            socket.emit("send message", {
+                username: $("#username").val(),
+                message: $("#myMessage").val()
+            });
             $("#myMessage").val("");
         } else {
             console.log("There is no message to send");
@@ -16,7 +19,7 @@ jQuery(document).ready(function($){
         return false;
     });
     
-    socket.on("new message", function(message){
-        $("#messageLog").append($("<li>").text(message));
+    socket.on("new message", function(messageData){
+        $("#messageLog").append("<li>").text(messageData.dateSent + " @ " + messageData.timeSent + " " + messageData.username + ": " + messageData.message);
     })
 });
