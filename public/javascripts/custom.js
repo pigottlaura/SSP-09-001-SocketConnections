@@ -20,6 +20,6 @@ jQuery(document).ready(function($){
     });
     
     socket.on("new message", function(messageData){
-        $("#messageLog").append("<li>").text(messageData.dateSent + " @ " + messageData.timeSent + " " + messageData.username + ": " + messageData.message);
+        $("#messageLog").append($("<li>").text(messageData.dateSent + " @ " + messageData.timeSent + " - " + messageData.username + ": " + messageData.message));
     })
 });

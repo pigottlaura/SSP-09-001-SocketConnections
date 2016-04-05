@@ -39,12 +39,40 @@ app.newSocketConnection = function(socket){
     
     socket.on("send message", function(messageData){
         var currentTime = new Date();
+        var dateSentData = function(){
+            var result = "";
+            if(currentTime.getDate() < 10){
+                result += "0";
+            }
+            result += currentTime.getDate();
+            result += "/";
+            if(currentTime.getMonth() < 9){
+                result += "0";
+            }
+            result += currentTime.getMonth() + 1;
+            result += "/";
+            result += currentTime.getFullYear();
+            
+            return result;
+        };
+        var timeSentData = function(){
+            var result = "";
+            result += currentTime.getHours() < 13 ? currentTime.getHours() : currentTime.getHours() - 12;
+            result += ":"
+            if(currentTime.getMinutes() < 10){
+                result += "0";
+            }
+            result += currentTime.getMinutes();
+            result += currentTime.getHours() < 12 ? "am" : "pm";
+            return result;
+        };
+        
         console.log("New message from " + messageData.username + " - " + messageData.message);
         io.emit("new message", {
             username: messageData.username,
             message: messageData.message,
-            dateSent: currentTime.getDate() + "/" + (currentTime.getMonth() + 1) + "/" + currentTime.getFullYear(),
-            timeSent: currentTime.getHours() + ":" + currentTime.getMinutes()
+            dateSent: dateSentData(),
+            timeSent: timeSentData()
         });
     });
     
