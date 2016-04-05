@@ -41,14 +41,10 @@ app.newSocketConnection = function(socket){
         var currentTime = new Date();
         var dateSentData = function(){
             var result = "";
-            if(currentTime.getDate() < 10){
-                result += "0";
-            }
+            result += currentTime.getDate() < 10 ? "0" : "";
             result += currentTime.getDate();
             result += "/";
-            if(currentTime.getMonth() < 9){
-                result += "0";
-            }
+            result += currentTime.getMonth() < 9 ? "0" : "";
             result += currentTime.getMonth() + 1;
             result += "/";
             result += currentTime.getFullYear();
@@ -59,11 +55,12 @@ app.newSocketConnection = function(socket){
             var result = "";
             result += currentTime.getHours() < 13 ? currentTime.getHours() : currentTime.getHours() - 12;
             result += ":"
-            if(currentTime.getMinutes() < 10){
-                result += "0";
-            }
+            result += currentTime.getMinutes() < 10 ? "0" : "";
             result += currentTime.getMinutes();
-            result += currentTime.getHours() < 12 ? "am" : "pm";
+            result += ":"
+            result += currentTime.getSeconds() < 10 ? "0" : "";
+            result += currentTime.getSeconds();
+            result += currentTime.getHours() < 12 ? " am" : " pm";
             return result;
         };
         
