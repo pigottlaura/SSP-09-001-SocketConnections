@@ -1,5 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  p Join the conversation :)
+  
+  form(action="")
+    input(type="text" id="myMessage")
+    input(type="submit" value="Send Message")
+
+  ul(id="messageLog")
